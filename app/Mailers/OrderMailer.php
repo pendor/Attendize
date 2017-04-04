@@ -35,9 +35,11 @@ class OrderMailer
             $message->subject('Your tickets for the event ' . $order->event->title);
 
             $file_name = $order->order_reference;
-            $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
-
-            $message->attach($file_path);
+            
+            if($order->is_payment_received) {
+              $file_path = public_path(config('attendize.event_pdf_tickets_path')) . '/' . $file_name . '.pdf';
+              $message->attach($file_path);
+            }
         });
 
     }

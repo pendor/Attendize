@@ -49,7 +49,9 @@ class QueueHandler
         $this->orderMailer->sendOrderConfirmation($order);
         //3
 
-        $this->orderMailer->sendTickets($order);
+        if($order->is_payment_received) {
+          $this->orderMailer->sendTickets($order);
+        }
 
         $job->delete();
     }
