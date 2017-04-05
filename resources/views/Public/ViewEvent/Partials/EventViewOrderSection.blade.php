@@ -54,9 +54,11 @@
                 <i class="ico ico-checkmark-circle"></i>
             </span>
             <h1>Thank you for your order!</h1>
+            @if($order->is_payment_received)
             <h2>
                 Your <a title="Download Tickets" class="ticket_download_link" href="{{route('showOrderTickets', ['order_reference' => $order->order_reference])}}?download=1">tickets</a> and a confirmation email have been sent to you.
             </h2>
+            @endif
         </div>
     </div>
 
@@ -66,7 +68,11 @@
 
                 @if($event->post_order_display_message)
                 <div class="alert alert-dismissable alert-info">
+                  @if($order->is_payment_received)
                     {{ nl2br(e($event->post_order_display_message)) }}
+                  @else
+                    Additional details will be available here after your payment is confirmed.
+                  @endif
                 </div>
                 @endif
 
