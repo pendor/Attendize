@@ -726,7 +726,7 @@ class EventCheckoutController extends Controller
     {
         $order = Order::where('order_reference', '=', $order_reference)->first();
 
-        if (!$order) {
+        if (!$order || !$order->is_payment_received) {
             abort(404);
         }
 
