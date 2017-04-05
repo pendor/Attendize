@@ -7,6 +7,13 @@ Your order for the event <b>{{$order->event->title}}</b> was successful.<br><br>
 
 @if($order->is_payment_received)
 <b>Your order is paid in full.  Thank you!</b><br><br>
+
+@if($order->event->post_order_display_message)
+<div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
+{{ nl2br(e($order->event->post_order_display_message)) }}
+</div>
+@endif
+
 Your tickets are attached to this email. You can also view you order details and download your tickets at: {{route('showOrderDetails', ['order_reference' => $order->order_reference])}}
 @endif
 @if(!$order->is_payment_received)
@@ -21,7 +28,7 @@ Order Reference: <b>{{$order->order_reference}}</b><br>
 Order Name: <b>{{$order->full_name}}</b><br>
 Order Date: <b>{{$order->created_at->toDayDateTimeString()}}</b><br>
 Order Email: <b>{{$order->email}}</b><br>
-
+<a href="{!! route('downloadCalendarIcs', ['event_id' => $order->event->id]) !!}">Add To Calendar</a>
 <h3>Order Items</h3>
 <div style="padding:10px; background: #F9F9F9; border: 1px solid #f1f1f1;">
     <table style="width:100%; margin:10px;">
