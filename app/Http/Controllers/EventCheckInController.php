@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use JavaScript;
+use Illuminate\Support\Facades\URL;
 
 class EventCheckInController extends MyBaseController
 {
@@ -31,6 +32,7 @@ class EventCheckInController extends MyBaseController
             'qrcodeCheckInRoute' => route('postQRCodeCheckInAttendee', ['event_id' => $event->id]),
             'checkInRoute'       => route('postCheckInAttendee', ['event_id' => $event->id]),
             'checkInSearchRoute' => route('postCheckInSearch', ['event_id' => $event->id]),
+            'beepUrl'            => URL::asset('/mp3/beep.mp3'),
         ]);
 
         return view('ManageEvent.CheckIn', $data);
