@@ -40,7 +40,11 @@
                     <td>{{{$attendee->email}}}</td>
                     <td>{{{$attendee->ticket->title}}}</td>
                     <td>{{{$attendee->order->order_reference}}}</td>
-                    <td>{{$attendee->created_at->format('d/m/Y H:i')}}</td>
+                    <td>{{$attendee->created_at->format('d/m/Y H:i')}}
+                      @if($attendee->is_refunded || $attendee->order->is_refunded)<b>REFUNDED</b>@endif
+                      @if(!$attendee->order->is_payment_received)<b>PAYMENT DUE</b>@endif
+                      @if($attendee->order->is_cancelled || $attendee->order->is_deleted)<b>CANCELED</b>@endif
+                    </td>
                     <td><input type="checkbox" style="border: 1px solid #000; height: 15px; width: 15px;" /></td>
                 </tr>
                 @endforeach
