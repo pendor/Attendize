@@ -8,6 +8,7 @@ use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\EventStats;
 use App\Models\Order;
+use App\Mailers\OrderMailer;
 use DB;
 use Excel;
 use Illuminate\Http\Request;
@@ -467,6 +468,9 @@ class EventOrdersController extends MyBaseController
         $order->save();
 
         session()->flash('message', 'Order Payment Status Successfully Updated');
+
+        $orderMailer = new OrderMailer();
+        $orderMailer->sendOrderTickets($order);
 
         return response()->json([
             'status' => 'success',
